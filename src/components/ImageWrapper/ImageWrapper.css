@@ -1,0 +1,5 @@
+.ImageWrapper {
+}
+.ImageWrapper .image {
+  pointer-events: none;
+}
