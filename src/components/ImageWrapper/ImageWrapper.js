@@ -41,6 +41,7 @@ export class ImageWrapper extends React.Component {
         return <div className="ImageWrapper">
             <AreaSelector getElementPosition={this.getImagePosition.bind(this)}
                           getElementSize={this.getImageSize.bind(this)} >
+                <div className="image-overlay"/>
                 <img ref={(imageElementRef) => {this.imageElementRef = imageElementRef}}
                      className="image"
                      src={this.getImageBase64Src(this.props.base64Image)} />

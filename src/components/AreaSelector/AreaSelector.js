@@ -1,4 +1,6 @@
 import React, {PropTypes} from 'react'
+import {SelectionBox} from "../SelectionBox/SelectionBox";
+import {DEFAULT_SELECTED} from "../../logic/constants/selection-box.styles";
 
 const setSelectionPositionStart = (x, y) => (state, props) => ({
     ...state,
@@ -59,43 +61,29 @@ export class AreaSelector extends React.Component {
             selectionBoxVisible: true,
 
         })
-        this.setState(setSelectionPositionStart(clientX - position.x, clientY - position.y))
+        this.setState(setSelectionPositionStart((clientX - position.x) / size.x, (clientY - position.y) / size.y))
     }
 
     onMouseMove({clientX, clientY}) {
         const position = this.props.getElementPosition()
-        this.setState(setSelectionPositionEnd(clientX - position.x, clientY - position.y))
+        const size = this.props.getElementSize()
+        this.setState(setSelectionPositionEnd((clientX - position.x) / size.x, (clientY - position.y) / size.y))
     }
 
-    getCSSPosition (selectionPosition) {
-        const minX = Math.min(selectionPosition.x1, selectionPosition.x2)
-        const minY = Math.min(selectionPosition.y1, selectionPosition.y2)
-        return {
-            left: minX,
-            top: minY,
-            width: Math.abs(selectionPosition.x1 - selectionPosition.x2),
-            height: Math.abs(selectionPosition.y1 - selectionPosition.y2)
-        }
-    }
+
 
     renderSelectionBox (selectionBox) {
-        return <div style={{
-            position: 'absolute',
-            border: '2px solid red',
-            ...this.getCSSPosition(selectionBox)
-        }}></div>
+        return <SelectionBox position={selectionBox} baseStyle={DEFAULT_SELECTED} />
     }
+
 
     render() {
         return <div onMouseDown={this.onMouseDown.bind(this)}
                     style={this.style}
                     onMouseMove={this.onMouseMove.bind(this)}
                     onMouseUp={this.onMouseUp.bind(this)}>
-            {this.state.selectionBoxVisible && <div className="selectionBox" style={{
-                position: 'absolute',
-                border: '1px dashed black',
-                ...this.getCSSPosition(this.state.selectionPosition)
-            }}/>}
+            {this.state.selectionBoxVisible &&
+                <SelectionBox position={this.state.selectionPosition} />}
             {this.state.selectedSections.map(this.renderSelectionBox.bind(this))}
             {this.props.children}
         </div>
