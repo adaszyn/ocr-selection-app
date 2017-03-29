@@ -2,16 +2,6 @@ import React, {PropTypes} from 'react'
 import AreaSelector from '../AreaSelector/AreaSelector'
 import './ImageWrapper.css'
 
-/*
- {
- backgroundImage: `url("data:image/gif;base64, ${this.props.base64Image}")`,
- width: '600px',
- height: '600px',
- backgroundPosition: "0% 0%",
- backgroundSize: "100% auto"
- }
-*/
-
 export class ImageWrapper extends React.Component {
     constructor (props) {
         super(props)

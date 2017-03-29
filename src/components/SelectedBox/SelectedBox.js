@@ -18,7 +18,6 @@ export class SelectedBox extends SelectionBox {
     }
 
     onMouseEnter () {
-        console.log('onMouseEnter');
         this.setMouseIsOverValue(true)
     }
 
@@ -28,8 +27,8 @@ export class SelectedBox extends SelectionBox {
 
     render () {
         return <div className="SelectedBox">
-            <div className="toolkit-container">
-                {this.state.mouseIsOver && <SelectionToolKit />}
+            <div className="toolkit-container" style={this.getCSSPosition(this.props.position)}>
+                {this.state.mouseIsOver && <SelectionToolKit onMouseLeave={this.onMouseLeave.bind(this)} onMouseEnter={this.onMouseEnter.bind(this)}/>}
             </div>
             {this.getSelectionBox()}
         </div>

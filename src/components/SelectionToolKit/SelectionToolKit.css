@@ -1,0 +1,8 @@
+.SelectionToolKit {
+    position: absolute;
+    width: 100px;
+    height: 60px;
+    top: -60px;
+    left: 0px;
+    background-color: yellowgreen;
+}

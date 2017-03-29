@@ -1,3 +1,8 @@
 .SelectedBox {
     z-index: 3;
 }
+.SelectedBox .toolkit-container {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
