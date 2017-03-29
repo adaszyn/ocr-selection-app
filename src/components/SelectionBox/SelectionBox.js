@@ -11,14 +11,28 @@ export class SelectionBox extends Component {
             height: `${Math.abs(selectionPosition.y1 - selectionPosition.y2) * 100}%`
         }
     }
+    onMouseLeave () {
+
+    }
+    onMouseEnter () {
+
+    }
+
+    getSelectionBox () {
+        return <div className="selectionBox"
+                    onMouseEnter={this.onMouseEnter.bind(this)}
+                    onMouseLeave={this.onMouseLeave.bind(this)}
+                    style={{
+                        position: 'absolute',
+                        border: '1px dashed black',
+                        ...this.props.baseStyle,
+                        ...this.getCSSPosition(this.props.position)
+                    }}
+        />
+    }
 
     render () {
-        return <div className="selectionBox" style={{
-            position: 'absolute',
-            border: '1px dashed black',
-            ...this.props.baseStyle,
-            ...this.getCSSPosition(this.props.position)
-        }}/>
+        return this.getSelectionBox()
     }
 }
 

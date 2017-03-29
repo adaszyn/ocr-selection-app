@@ -8,9 +8,6 @@
   left: 0;
   z-index: 2;
 }
-.ImageWrapper .image {
-  pointer-events: none;
-  height: 100%;
-  width: 100%;
-  z-index: 1;
+.ImageWrapper .image-container {
+  background-size: contain;
 }

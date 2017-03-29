@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react'
 import {SelectionBox} from "../SelectionBox/SelectionBox";
 import {DEFAULT_SELECTED} from "../../logic/constants/selection-box.styles";
+import {SelectedBox} from "../SelectedBox/SelectedBox";
 
 const setSelectionPositionStart = (x, y) => (state, props) => ({
     ...state,
@@ -72,8 +73,8 @@ export class AreaSelector extends React.Component {
 
 
 
-    renderSelectionBox (selectionBox) {
-        return <SelectionBox position={selectionBox} baseStyle={DEFAULT_SELECTED} />
+    renderSelectedBox (selectionBox) {
+        return <SelectedBox position={selectionBox} baseStyle={DEFAULT_SELECTED} />
     }
 
 
@@ -82,10 +83,10 @@ export class AreaSelector extends React.Component {
                     style={this.style}
                     onMouseMove={this.onMouseMove.bind(this)}
                     onMouseUp={this.onMouseUp.bind(this)}>
+            {this.props.children}
             {this.state.selectionBoxVisible &&
                 <SelectionBox position={this.state.selectionPosition} />}
-            {this.state.selectedSections.map(this.renderSelectionBox.bind(this))}
-            {this.props.children}
+            {this.state.selectedSections.map(this.renderSelectedBox.bind(this))}
         </div>
     }
 }
