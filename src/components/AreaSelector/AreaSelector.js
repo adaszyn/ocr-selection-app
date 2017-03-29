@@ -42,6 +42,15 @@ export class AreaSelector extends React.Component {
         this.style = {
             position: 'relative'
         }
+      window.addEventListener('keyup', (event) => {
+        this.setState({
+          selectionBoxVisible: false,
+          x1: 0,
+          y1: 0,
+          x2: 0,
+          y2: 0
+        })
+      });
     }
 
     onMouseUp() {

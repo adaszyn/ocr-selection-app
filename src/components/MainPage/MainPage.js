@@ -3,7 +3,7 @@ import { TextView } from '../TextView/TextView'
 import { PdfView } from '../OutputView/PdfView'
 import { Navbar } from '../Navbar/Navbar'
 import './MainPage.css'
-import { requestSession, requestText } from '../../logic/service/fake-api'
+import { requestSession, requestText } from '../../logic/service/api'
 
 const setImages = (images) => (state, props) => ({
   ...state,
@@ -36,11 +36,11 @@ export class MainPage extends React.Component {
       selections: [],
       ocrResults: {}
     }
-    requestSession(null)
-      .then(({sessionId, images}) => {
-        this.callSetStateWithSetter(setSessionId, sessionId)
-        this.callSetStateWithSetter(setImages, images)
-      })
+    // requestSession(null)
+    //   .then(({sessionId, images}) => {
+    //     this.callSetStateWithSetter(setSessionId, sessionId)
+    //     this.callSetStateWithSetter(setImages, images)
+    //   })
   }
 
   callSetStateWithSetter (setter, ...args) {
@@ -48,7 +48,7 @@ export class MainPage extends React.Component {
   }
 
   onFileLoaded (file) {
-    requestSession(null)
+    requestSession(file)
       .then(({sessionId, images}) => {
         this.callSetStateWithSetter(setSessionId, sessionId)
         this.callSetStateWithSetter(setImages, images)
@@ -58,7 +58,7 @@ export class MainPage extends React.Component {
   onNewSectionOCRRequest (request) {
     const {x1, x2, y1, y2} = request.section
     const sections = [
-      [x1, x2, y1, y2, 'Text']
+      [x1, y1, Math.abs(x1 - x2), Math.abs(y1 - y2), 'Text']
     ]
     const {imageId, requestId} = request
     this.callSetStateWithSetter(setOcrActionFinished, requestId, null, true)
@@ -68,7 +68,7 @@ export class MainPage extends React.Component {
 
   render () {
     return <div className='MainPage'>
-      <Navbar onFileLoaded={this.onFileLoaded }/>
+      <Navbar onFileLoaded={this.onFileLoaded.bind(this)}/>
       <div className='container'>
         <TextView results={this.state.ocrResults} />
         <PdfView onNewSectionOCRRequest={this.onNewSectionOCRRequest.bind(this)} images={this.state.images}/>
