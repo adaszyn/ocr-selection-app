@@ -15,11 +15,15 @@ const setSessionId = (sessionId) => (state, props) => ({
   sessionId
 })
 
-const setOcrResult = (requestId, result) => (state, props) => ({
+
+const setOcrActionFinished = (requestId, result, loading) => (state, props) => ({
   ...state,
   ocrResults: {
     ...state.ocrResults,
-    [requestId]: result
+    [requestId]: {
+      loading,
+      result
+    }
   }
 })
 
@@ -57,8 +61,9 @@ export class MainPage extends React.Component {
       [x1, x2, y1, y2, 'Text']
     ]
     const {imageId, requestId} = request
+    this.callSetStateWithSetter(setOcrActionFinished, requestId, null, true)
     requestText(sections, this.state.sessionId, imageId)
-      .then((result) => this.callSetStateWithSetter(setOcrResult, requestId, result))
+      .then((result) => this.callSetStateWithSetter(setOcrActionFinished, requestId, result, false))
   }
 
   render () {

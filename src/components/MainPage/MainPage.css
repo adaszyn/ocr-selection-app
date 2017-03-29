@@ -2,4 +2,5 @@
 }
 .MainPage .container {
     display: flex;
+    height: 80vh;
 }

@@ -1,11 +1,19 @@
 import React, {PropTypes, Component} from 'react'
 import './TextView.css'
+import { TextViewBox } from '../TextViewBox/TextViewBox'
+
+const DEFAULT_PLACEHOLDER_TEXT = '...'
 
 export class TextView extends Component {
   mapKeyToPreviewComponent (key) {
-    return <div key={key}>
-      {this.props.results[key].text}
-    </div>
+    const result = this.props.results[key]
+    const text = result.result
+      ? this.props.results[key].result.text
+      : DEFAULT_PLACEHOLDER_TEXT
+
+    const loading = this.props.results[key].loading
+
+    return <TextViewBox text={text} loading={loading}/>
   }
   render () {
     const keys = Object.keys(this.props.results)

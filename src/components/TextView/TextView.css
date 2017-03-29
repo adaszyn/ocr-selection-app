@@ -1,3 +1,5 @@
 .TextView {
     width: 50%;
+    height: 100%;
+    overflow: hidden;
 }

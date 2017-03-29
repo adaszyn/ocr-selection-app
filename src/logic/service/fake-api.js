@@ -1,8 +1,10 @@
 import fakeImages from './fakeImages.json'
 
 export function requestText (sections, sessionId, imageId) {
-  return Promise.resolve({
-    text: 'Lorem ipsum ...'
+  return new Promise((resolve) => {
+    setTimeout(function () {
+      resolve({text: "Lorem ipsum"})
+    }, 1000)
   })
 }
 
