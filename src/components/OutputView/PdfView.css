@@ -1,0 +1,5 @@
+.PdfView {
+    height: 80vh;
+    overflow: scroll;
+    width: 50%;
+}

@@ -1,2 +1,5 @@
 .MainPage {
 }
+.MainPage .container {
+    display: flex;
+}

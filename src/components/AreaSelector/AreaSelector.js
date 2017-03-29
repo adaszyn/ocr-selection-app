@@ -98,7 +98,6 @@ AreaSelector.propTypes = {
     onNewSectionsSelected: PropTypes.func
 }
 AreaSelector.defaultProps = {
-    children: null,
-    onNewSectionsSelected: () => null,
+    children: null
 }
 export default AreaSelector
