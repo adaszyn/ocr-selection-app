@@ -3,7 +3,7 @@ import { TextView } from '../TextView/TextView'
 import { PdfView } from '../OutputView/PdfView'
 import { Navbar } from '../Navbar/Navbar'
 import './MainPage.css'
-import { requestSession, requestText } from '../../logic/service/api'
+import { requestSession, requestText } from '../../logic/service/fake-api'
 
 const setImages = (images) => (state, props) => ({
   ...state,
@@ -36,11 +36,11 @@ export class MainPage extends React.Component {
       selections: [],
       ocrResults: {}
     }
-    // requestSession(null)
-    //   .then(({sessionId, images}) => {
-    //     this.callSetStateWithSetter(setSessionId, sessionId)
-    //     this.callSetStateWithSetter(setImages, images)
-    //   })
+    requestSession(null)
+      .then(({sessionId, images}) => {
+        this.callSetStateWithSetter(setSessionId, sessionId)
+        this.callSetStateWithSetter(setImages, images)
+      })
   }
 
   callSetStateWithSetter (setter, ...args) {

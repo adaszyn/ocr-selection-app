@@ -21,11 +21,9 @@ export class SelectionBox extends Component {
   }
 
   onMouseDown (e) {
-    e.stopPropagation()
   }
 
   onMouseUp (e) {
-    e.stopPropagation()
   }
 
   getSelectionBox () {
