@@ -1,0 +1,11 @@
+.ResizeBullet {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: black;
+    margin-left: -10px;
+    margin-top: -10px;
+    cursor: nwse-resize;
+    z-index: 5;
+}

@@ -7,3 +7,8 @@ ReactDOM.render(
   <MainPage />,
   document.getElementById('root')
 );
+
+/*
+  TODO:
+  1. SelectionBox visible when mouse is down - should be visible when move
+*/
