@@ -1,9 +1,7 @@
 import React, { PropTypes } from 'react'
 import { SelectionBox } from '../SelectionBox/SelectionBox'
-import { DEFAULT_SELECTED } from '../../logic/constants/selection-box.styles'
 import { SelectedBox } from '../SelectedBox/SelectedBox'
 import { generateUniqueKey } from '../../logic/util/key-generator'
-import { AbstractAreaComponent } from '../AbstractAreaComponent/AbstractAreaComponent'
 import { ResizeBullet } from '../ResizeBullet/ResizeBullet'
 import { MoveBullet } from '../MoveBullet/MoveBullet'
 

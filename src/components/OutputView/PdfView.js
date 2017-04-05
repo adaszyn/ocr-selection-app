@@ -9,10 +9,22 @@ export class PdfView extends React.Component {
       requestId: generateUniqueKey()
     })
   }
+
+  renderImageWrappers () {
+    return this.props.images.map(this.renderImageWrapper.bind(this))
+  }
+
+  renderImageWrapper (image) {
+    return <ImageWrapper onNewSectionSelected={this.onNewSectionSelected.bind(this)}
+                         imageId={image.imageId}
+                         key={image.imageId}
+                         responses={this.props.responses[image.imageId]}
+                         base64Image={image.base64Image}/>
+  }
+
   render () {
     return <div className='PdfView'>
-      {this.props.images.map(image => <ImageWrapper onNewSectionSelected={this.onNewSectionSelected.bind(this)}
-                                                    imageId={image.imageId} responses={this.props.responses[image.imageId]} base64Image={image.base64Image}/>)}
+      {this.renderImageWrappers()}
     </div>
   }
 }
@@ -24,7 +36,7 @@ PdfView.propTypes = {
 PdfView.defaultProps = {
   responses: {
     'main-00': {
-      text: "LorepIpsum et .... "
+      text: 'LorepIpsum et .... '
     }
   }
 }

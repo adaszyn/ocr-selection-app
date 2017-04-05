@@ -1,10 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { SelectionToolKit } from '../SelectionToolKit/SelectionToolKit'
-import { ResizeBullet } from '../ResizeBullet/ResizeBullet'
-import { relativePositionToCSS } from '../../logic/util/positioning-util'
 import { AbstractAreaComponent } from '../AbstractAreaComponent/AbstractAreaComponent'
 import './SelectedBox.css'
-import { MoveBullet } from '../MoveBullet/MoveBullet'
+import { PositionPropType } from '../../logic/constants/predefined-prop-types'
 
 export class SelectedBox extends Component {
   constructor (props) {
@@ -51,12 +49,7 @@ export class SelectedBox extends Component {
 }
 
 SelectedBox.propTypes = {
-  position: PropTypes.shape({
-    x1: PropTypes.number,
-    x2: PropTypes.number,
-    y1: PropTypes.number,
-    y2: PropTypes.number,
-  }),
+  position: PositionPropType,
   id: PropTypes.string,
   onPositionChange: PropTypes.func,
   getContainerSize: PropTypes.func,

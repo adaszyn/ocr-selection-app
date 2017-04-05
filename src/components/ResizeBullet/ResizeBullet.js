@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { AbstractAreaComponent } from '../AbstractAreaComponent/AbstractAreaComponent'
 import './ResizeBullet.css'
-import { getPositionRelativeToContainer } from '../../logic/util/positioning-util'
+import { PositionPropType } from '../../logic/constants/predefined-prop-types'
 
 export class ResizeBullet extends Component {
 
@@ -12,18 +12,6 @@ export class ResizeBullet extends Component {
       dragBulletPosition: {
         ...props.position
       }
-    }
-  }
-
-  getBulletPosition () {
-    const dragPosition = this.state.dragBulletPosition
-    const minX = Math.min(dragPosition.x1, dragPosition.x2)
-    const minY = Math.min(dragPosition.y1, dragPosition.y2)
-    const width = Math.abs(dragPosition.x1 - dragPosition.x2)
-    const height = Math.abs(dragPosition.y1 - dragPosition.y2)
-    return {
-      left: `${(minX + width) * 100}%`,
-      top: `${(minY + height) * 100}%`,
     }
   }
 
@@ -49,14 +37,9 @@ export class ResizeBullet extends Component {
 }
 
 ResizeBullet.propTypes = {
-  position: PropTypes.shape({
-    x1: PropTypes.number,
-    x2: PropTypes.number,
-    y1: PropTypes.number,
-    y2: PropTypes.number,
-  }),
-  getContainerSize: PropTypes.string,
-  getContainerPosition: PropTypes.string,
+  position: PositionPropType,
+  getContainerSize: PropTypes.func,
+  getContainerPosition: PropTypes.func,
   id: PropTypes.string,
   onPositionChange: PropTypes.func
 }

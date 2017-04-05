@@ -13,7 +13,7 @@ export class TextView extends Component {
 
     const loading = this.props.results[key].loading
 
-    return <TextViewBox text={text} loading={loading}/>
+    return <TextViewBox key={key} text={text} loading={loading}/>
   }
   render () {
     const keys = Object.keys(this.props.results)
