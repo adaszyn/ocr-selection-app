@@ -4,9 +4,10 @@ import './PdfView.css'
 import { generateUniqueKey } from '../../logic/util/key-generator'
 export class PdfView extends React.Component {
   onNewSectionSelected (request) {
+    console.log(request);
     this.props.onNewSectionOCRRequest({
       ...request,
-      requestId: generateUniqueKey()
+      requestId: request.section.id
     })
   }
 
@@ -19,7 +20,8 @@ export class PdfView extends React.Component {
                          imageId={image.imageId}
                          key={image.imageId}
                          responses={this.props.responses[image.imageId]}
-                         base64Image={image.base64Image}/>
+                         base64Image={image.base64Image}
+                         onSectionRemoved={this.props.onSectionRemoved}/>
   }
 
   render () {
@@ -31,7 +33,8 @@ export class PdfView extends React.Component {
 PdfView.propTypes = {
   images: PropTypes.array,
   onNewSectionOCRRequest: PropTypes.func,
-  responses: PropTypes.any
+  responses: PropTypes.any,
+  onSectionRemoved: PropTypes.func
 }
 PdfView.defaultProps = {
   responses: {

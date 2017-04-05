@@ -23,6 +23,11 @@ const setSelectionPositionEnd = (x, y) => (state, props) => ({
   }
 })
 
+export const removeSelectionBox = id => state => ({
+  ...state,
+  selectedSections: state.selectedSections.filter(section => section.id !== id)
+})
+
 const addNewSelection = (selectionObject) => (state, props) => ({
   ...state,
   selectedSections: state.selectedSections.concat([selectionObject])
@@ -69,7 +74,6 @@ export class AreaSelector extends React.Component {
 
   onMouseUp (event) {
     event.preventDefault()
-
     this.setState({
       selectionBoxVisible: false
     })
@@ -149,10 +153,15 @@ export class AreaSelector extends React.Component {
     return <SelectedBox getContainerSize={this.props.getElementSize}
                         key={selectionBox.id}
                         getContainerPosition={this.props.getElementPosition}
-      // onPositionChange={this.onBulletPositionChange.bind(this)}
+                        onClose={this.onSelectedBoxClose.bind(this, selectionBox.id)}
                         position={selectionBox.position}
                         id={selectionBox.id}
     />
+  }
+
+  onSelectedBoxClose (id) {
+    this.setState(removeSelectionBox(id))
+    this.props.onSectionRemoved(id)
   }
 
   renderResizeBullets () {
@@ -182,7 +191,6 @@ export class AreaSelector extends React.Component {
     return <ResizeBullet getContainerSize={this.props.getElementSize}
                          key={selectionBox.id}
                          getContainerPosition={this.props.getElementPosition}
-      // onPositionChange={this.onBulletPositionChange.bind(this, selectionBox.id)}
                          position={position}
                          id={selectionBox.id}
                          onDragStart={this.onBulletDragStart.bind(this, selectionBox.id)}
@@ -205,7 +213,6 @@ export class AreaSelector extends React.Component {
     return <MoveBullet getContainerSize={this.props.getElementSize}
                        key={selectionBox.id}
                        getContainerPosition={this.props.getElementPosition}
-      // onPositionChange={this.onBulletPositionChange.bind(this, selectionBox.id)}
                        position={position}
                        id={selectionBox.id}
                        onMoveStart={this.onBulletMoveStart.bind(this, selectionBox.id)}
@@ -243,7 +250,8 @@ AreaSelector.propTypes = {
   children: PropTypes.object,
   getElementPosition: PropTypes.func,
   getElementSize: PropTypes.func,
-  onNewSectionsSelected: PropTypes.func
+  onNewSectionsSelected: PropTypes.func,
+  onSectionRemoved: PropTypes.func,
 }
 AreaSelector.defaultProps = {
   children: null

@@ -40,7 +40,7 @@ export class SelectedBox extends Component {
         <div className="SelectedBox" onMouseLeave={this.onMouseLeave.bind(this)}
              onMouseEnter={this.onMouseEnter.bind(this)}>
           <div className="toolkit-container">
-            {true && <SelectionToolKit />}
+            {this.state.mouseIsOver && <SelectionToolKit onClose={this.props.onClose} />}
           </div>
         </div>
       </AbstractAreaComponent>
@@ -54,6 +54,7 @@ SelectedBox.propTypes = {
   onPositionChange: PropTypes.func,
   getContainerSize: PropTypes.func,
   getContainerPosition: PropTypes.func,
+  onClose: PropTypes.func
 }
 
 SelectedBox.defaultProps = {}

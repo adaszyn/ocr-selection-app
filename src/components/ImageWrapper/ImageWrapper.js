@@ -53,6 +53,7 @@ export class ImageWrapper extends React.Component {
       <AreaSelector getElementPosition={this.getImagePosition.bind(this)}
                     getElementSize={this.getImageSize.bind(this)}
                     onNewSectionsSelected={this.onNewSectionSelected.bind(this)}
+                    onSectionRemoved={this.props.onSectionRemoved}
       >
         <div ref={(imageElementRef) => {this.imageElementRef = imageElementRef}}
              className="image-container"
@@ -73,7 +74,8 @@ export class ImageWrapper extends React.Component {
 ImageWrapper.propTypes = {
   base64Image: PropTypes.string,
   imageId: PropTypes.string,
-  onNewSectionSelected: PropTypes.func
+  onNewSectionSelected: PropTypes.func,
+  onSectionRemoved: PropTypes.func
 }
 
 export default ImageWrapper

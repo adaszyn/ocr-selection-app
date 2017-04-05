@@ -16,6 +16,7 @@ export class TextView extends Component {
     return <TextViewBox key={key} text={text} loading={loading}/>
   }
   render () {
+    console.log(this.props.results);
     const keys = Object.keys(this.props.results)
     return <div className='TextView'>
       {keys.map(this.mapKeyToPreviewComponent.bind(this))}

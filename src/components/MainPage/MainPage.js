@@ -55,6 +55,17 @@ export class MainPage extends React.Component {
       })
   }
 
+  onSectionRemoved (id) {
+    const ocrResults = this.state.ocrResults
+    console.log(ocrResults);
+    delete ocrResults[id]
+    console.log(ocrResults);
+    this.setState({
+      selections: this.state.selections.filter(selection => selection.id !==id),
+      ocrResults
+    })
+  }
+
   onNewSectionOCRRequest (request) {
     const {x1, x2, y1, y2} = request.section
     const sections = [
@@ -71,7 +82,9 @@ export class MainPage extends React.Component {
       <Navbar onFileLoaded={this.onFileLoaded.bind(this)}/>
       <div className='container'>
         <TextView results={this.state.ocrResults} />
-        <PdfView onNewSectionOCRRequest={this.onNewSectionOCRRequest.bind(this)} images={this.state.images}/>
+        <PdfView onNewSectionOCRRequest={this.onNewSectionOCRRequest.bind(this)}
+                 onSectionRemoved={this.onSectionRemoved.bind(this)}
+                 images={this.state.images}/>
       </div>
     </div>
   }

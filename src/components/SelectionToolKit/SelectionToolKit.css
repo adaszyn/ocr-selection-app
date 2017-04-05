@@ -13,6 +13,7 @@
     background-size: 80%;
     cursor: pointer;
     transition: 0.1s linear all;
+    background-color: red;
 }
 .SelectionToolKit .close:hover {
     transform: scale(1.2);
