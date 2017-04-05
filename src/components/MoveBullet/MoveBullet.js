@@ -1,8 +1,15 @@
 import React, { Component, PropTypes } from 'react'
 import './MoveBullet.css'
 import { AbstractAreaComponent } from '../AbstractAreaComponent/AbstractAreaComponent'
+import moveIcon from '../../../public/move.svg'
 
 export class MoveBullet extends Component {
+  constructor () {
+    super()
+    this.bulletStyle = {
+      backgroundImage: `url(${moveIcon})`
+    }
+  }
   onMouseDown (e) {
     e.stopPropagation()
     e.preventDefault()
@@ -19,6 +26,7 @@ export class MoveBullet extends Component {
     return (
       <AbstractAreaComponent position={this.props.position}>
         <div className="MoveBullet"
+             style={this.bulletStyle}
              onMouseDown={this.onMouseDown.bind(this)}
              onMouseUp={this.onMouseUp.bind(this)}/>
       </AbstractAreaComponent>

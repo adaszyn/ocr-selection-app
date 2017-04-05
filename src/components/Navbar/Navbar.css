@@ -1,0 +1,15 @@
+.Navbar {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Navbar .logo {
+    height: 30%;
+    margin-left: 16px;
+}
+
+.Navbar .file-label {
+
+}

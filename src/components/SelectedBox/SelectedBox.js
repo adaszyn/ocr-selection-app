@@ -40,7 +40,7 @@ export class SelectedBox extends Component {
         <div className="SelectedBox" onMouseLeave={this.onMouseLeave.bind(this)}
              onMouseEnter={this.onMouseEnter.bind(this)}>
           <div className="toolkit-container">
-            {this.state.mouseIsOver && <SelectionToolKit />}
+            {true && <SelectionToolKit />}
           </div>
         </div>
       </AbstractAreaComponent>

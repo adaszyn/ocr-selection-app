@@ -1,0 +1,29 @@
+.FileInput {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.FileInput + label {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: inline-block;
+}
+.FileInputContainer {
+    border-radius: 15px;
+    border: 1px solid darkgray;
+    background: no-repeat 50% 50%;
+    background-size: 80%;
+    width: 30px;
+    height: 30px;
+    margin-right: 16px;
+    transition: 0.1s linear all;
+}
+
+.FileInputContainer:hover {
+    border: 1px solid darkgray;
+}

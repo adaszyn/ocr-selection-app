@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { AbstractAreaComponent } from '../AbstractAreaComponent/AbstractAreaComponent'
 import './ResizeBullet.css'
 import { PositionPropType } from '../../logic/constants/predefined-prop-types'
+import resizeIcon from '../../../public/resize.svg'
 
 export class ResizeBullet extends Component {
 
@@ -12,6 +13,9 @@ export class ResizeBullet extends Component {
       dragBulletPosition: {
         ...props.position
       }
+    }
+    this.resizeBulletStyle = {
+      backgroundImage: `url(${resizeIcon})`
     }
   }
 
@@ -30,6 +34,7 @@ export class ResizeBullet extends Component {
   render () {
     return <AbstractAreaComponent position={this.props.position}>
       <div className="ResizeBullet"
+           style={this.resizeBulletStyle}
            onMouseDown={this.onMouseDown.bind(this)}
            onMouseUp={this.onMouseUp.bind(this)}/>
     </AbstractAreaComponent>

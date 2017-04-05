@@ -9,5 +9,6 @@
   z-index: 2;
 }
 .ImageWrapper .image-container {
+  background-color: white;
   background-size: contain;
 }
