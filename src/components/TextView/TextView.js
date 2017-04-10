@@ -1,29 +1,42 @@
 import React, {PropTypes, Component} from 'react'
 import './TextView.css'
-import { TextViewBox } from '../TextViewBox/TextViewBox'
+import {SortableTextViewBox, TextViewBox} from '../TextViewBox/TextViewBox'
+import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 
 const DEFAULT_PLACEHOLDER_TEXT = '...'
 
 export class TextView extends Component {
-  mapKeyToPreviewComponent (key) {
-    const result = this.props.results[key]
-    const text = result.result
-      ? this.props.results[key].result.text
-      : DEFAULT_PLACEHOLDER_TEXT
+    constructor() {
+        super()
+        this.state = {
+            previewComponentsOrder: []
+        }
+    }
 
-    const loading = this.props.results[key].loading
+    renderPreviewComponents() {
+        return this.props.results.map(this.mapKeyToPreviewComponent.bind(this))
+    }
 
-    return <TextViewBox key={key} text={text} loading={loading}/>
-  }
-  render () {
-    console.log(this.props.results);
-    const keys = Object.keys(this.props.results)
-    return <div className='TextView'>
-      {keys.map(this.mapKeyToPreviewComponent.bind(this))}
-    </div>
-  }
+    mapKeyToPreviewComponent(item, index) {
+        const text = item.result
+            ? item.result.text
+            : DEFAULT_PLACEHOLDER_TEXT
+
+        const loading = item.loading
+
+        return <SortableTextViewBox index={index} key={item.id} text={text} loading={loading}/>
+
+    }
+
+    render() {
+        return <div className='TextView'>
+            {this.renderPreviewComponents()}
+        </div>
+    }
 }
 
 TextView.propTypes = {
-  results: PropTypes.any
+    results: PropTypes.array
 }
+
+export const SortableTextView = SortableContainer(TextView)

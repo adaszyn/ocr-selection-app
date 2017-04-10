@@ -4,7 +4,6 @@ import './PdfView.css'
 import { generateUniqueKey } from '../../logic/util/key-generator'
 export class PdfView extends React.Component {
   onNewSectionSelected (request) {
-    console.log(request);
     this.props.onNewSectionOCRRequest({
       ...request,
       requestId: request.section.id

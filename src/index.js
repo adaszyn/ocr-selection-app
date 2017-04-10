@@ -11,4 +11,6 @@ ReactDOM.render(
 /*
   TODO:
   1. SelectionBox visible when mouse is down - should be visible when move
+  2/ draggable list http://webcloud.se/sortable-list-component-react-js/
+
 */
