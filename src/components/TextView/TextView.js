@@ -5,8 +5,6 @@ import { SortableContainer } from 'react-sortable-hoc';
 
 const DEFAULT_PLACEHOLDER_TEXT = '...'
 
-
-
 export class TextView extends Component {
     constructor() {
         super()

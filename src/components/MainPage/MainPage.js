@@ -1,10 +1,48 @@
 import React from 'react'
 import {SortableTextView, TextView} from '../TextView/TextView'
-import {PdfView} from '../OutputView/PdfView'
+import {PdfView} from '../PdfView/PdfView'
 import {Navbar} from '../Navbar/Navbar'
 import './MainPage.css'
 import {requestSession, requestText} from '../../logic/service/fake-api'
 import {DEFAULT_SELECTED_BLOCK_TYPE} from "../../logic/constants/block-types";
+import {MainView} from "../MainView/MainView";
+import {WelcomeView} from "../WelcomeView/WelcomeView";
+import {Loader} from "../Loader/Loader";
+
+const getInitialState = () => {
+    return {
+        images: [],
+        isLoading: false,
+        sessionId: null,
+        selections: [],
+        ocrResults: [
+            {
+                requestId: 'test1',
+                result: {
+                    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris'
+                }
+            },
+            {
+                requestId: 'test2',
+                result: {
+                    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
+                }
+            },
+            {
+                requestId: 'test3',
+                result: {
+                    text: 'akdhsa kdjsakdjsad jsajkdas'
+                }
+            },
+            {
+                requestId: 'test4',
+                result: {
+                    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
+                }
+            }
+        ]
+    }
+}
 
 const setImages = (images) => (state, props) => ({
     ...state,
@@ -54,45 +92,16 @@ export const setBlockTypeForOcrResult = (requestId, blockType) => state => {
     return state
 }
 
+export const setLoading = isLoading => (state) => {
+    state.isLoading = isLoading
+    return state
+}
+
 export class MainPage extends React.Component {
     constructor() {
         super()
-        this.state = {
-            images: [],
-            sessionId: null,
-            selections: [],
-            ocrResults: [
-                {
-                    requestId: 'test1',
-                    result: {
-                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris'
-                    }
-                },
-                {
-                    requestId: 'test2',
-                    result: {
-                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
-                    }
-                },
-                {
-                    requestId: 'test3',
-                    result: {
-                        text: 'akdhsa kdjsakdjsad jsajkdas'
-                    }
-                },
-                {
-                    requestId: 'test4',
-                    result: {
-                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
-                    }
-                }
-            ]
-        }
-        requestSession(null)
-            .then(({sessionId, images}) => {
-                this.callSetStateWithSetter(setSessionId, sessionId)
-                this.callSetStateWithSetter(setImages, images)
-            })
+        this.state = getInitialState()
+
     }
 
     callSetStateWithSetter(setter, ...args) {
@@ -131,22 +140,43 @@ export class MainPage extends React.Component {
         this.setState(swapOCRResultsElements(oldIndex, newIndex))
     }
 
-    setNewBlockType (requestId, blockTypeId) {
+    setNewBlockType(requestId, blockTypeId) {
         this.setState(setBlockTypeForOcrResult(requestId, blockTypeId))
     }
 
+    onNewProjectSelected() {
+        this.callSetStateWithSetter(setLoading, true)
+        requestSession(null)
+            .then(({sessionId, images}) => {
+                this.callSetStateWithSetter(setSessionId, sessionId)
+                this.callSetStateWithSetter(setImages, images)
+                this.callSetStateWithSetter(setLoading, false)
+            })
+            .catch(() => {
+                this.callSetStateWithSetter(setLoading, false)
+            })
+    }
+
+    renderView() {
+        if (this.state.sessionId) {
+            return <MainView
+                onSectionRemoved={this.onSectionRemoved.bind(this)}
+
+                ocrResults={this.state.ocrResults}
+                setNewBlockType={this.setNewBlockType.bind(this)}
+                images={this.state.images}
+                onNewSectionOCRRequest={this.onNewSectionOCRRequest.bind(this)}
+                onSortEnd={this.onSortEnd.bind(this)}/>
+        } else {
+            return <WelcomeView loading={this.state.isLoading}
+                                onNewProjectSelected={this.onNewProjectSelected.bind(this)}/>
+        }
+    }
 
     render() {
         return <div className='MainPage'>
             <Navbar onFileLoaded={this.onFileLoaded.bind(this)}/>
-            <div className='container'>
-                <SortableTextView useDragHandle={true} onSortEnd={this.onSortEnd.bind(this)}
-                                  onBlockTypeChange={this.setNewBlockType.bind(this)}
-                                  results={this.state.ocrResults}/>
-                <PdfView onNewSectionOCRRequest={this.onNewSectionOCRRequest.bind(this)}
-                         onSectionRemoved={this.onSectionRemoved.bind(this)}
-                         images={this.state.images}/>
-            </div>
+                {this.renderView()}
         </div>
     }
 }

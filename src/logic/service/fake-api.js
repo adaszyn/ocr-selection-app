@@ -1,6 +1,6 @@
 import fakeImages from './fakeImages.json'
 
-export function requestText (sections, sessionId, imageId) {
+export function requestText () {
   return new Promise((resolve) => {
     setTimeout(function () {
       resolve({text: "Lorem ipsum"})
@@ -8,11 +8,13 @@ export function requestText (sections, sessionId, imageId) {
   })
 }
 
-export function requestSession (pdfBlob) {
+export function requestSession () {
   return new Promise((resolve, reject) => {
-    resolve({
-      images: fakeImages,
-      sessionId: 'FAKE_SESSION_ID'
-    })
+    setTimeout(() => {
+        resolve({
+            images: fakeImages,
+            sessionId: 'FAKE_SESSION_ID'
+        })
+    }, 2000)
   })
 }
