@@ -48,11 +48,19 @@ export class ImageWrapper extends React.Component {
     })
   }
 
+  onSelectionChanged (section) {
+    this.props.onSelectionChanged({
+      imageId: this.props.imageId,
+      section
+    })
+  }
+
   render () {
     return <div className="ImageWrapper">
       <AreaSelector getElementPosition={this.getImagePosition.bind(this)}
                     getElementSize={this.getImageSize.bind(this)}
                     onNewSectionsSelected={this.onNewSectionSelected.bind(this)}
+                    onSelectionChanged={this.onSelectionChanged.bind(this)}
                     onSectionRemoved={this.props.onSectionRemoved}
       >
         <div ref={(imageElementRef) => {this.imageElementRef = imageElementRef}}
@@ -75,7 +83,8 @@ ImageWrapper.propTypes = {
   base64Image: PropTypes.string,
   imageId: PropTypes.string,
   onNewSectionSelected: PropTypes.func,
-  onSectionRemoved: PropTypes.func
+  onSectionRemoved: PropTypes.func,
+  onSelectionChanged: PropTypes.func,
 }
 
 export default ImageWrapper

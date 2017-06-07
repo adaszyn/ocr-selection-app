@@ -175,7 +175,8 @@ export class AreaSelector extends React.Component {
   }
 
   onBulletDragStop (id) {
-    this.setState({
+      this.props.onSelectionChanged(this.state.selectedSections.find(section => section.id === id))
+      this.setState({
       bulletDrag: null
     })
   }
@@ -225,7 +226,9 @@ export class AreaSelector extends React.Component {
       bulletMove: id
     })
   }
-  onBulletMoveStop () {
+
+  onBulletMoveStop (id) {
+    this.props.onSelectionChanged(this.state.selectedSections.find(section => section.id === id))
     this.setState({
       bulletMove: null
     })
@@ -252,6 +255,7 @@ AreaSelector.propTypes = {
   getElementSize: PropTypes.func,
   onNewSectionsSelected: PropTypes.func,
   onSectionRemoved: PropTypes.func,
+  onSelectionChanged: PropTypes.func
 }
 AreaSelector.defaultProps = {
   children: null

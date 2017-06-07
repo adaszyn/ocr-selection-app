@@ -94,11 +94,22 @@ export class MainPage extends React.Component {
 
     onSectionRemoved(id) {
         const ocrResults = this.state.ocrResults
-        const filteredOcrResults = ocrResults.filter(ocrResult => ocrResult.id !== id)
+        const filteredOcrResults = ocrResults.filter(ocrResult => ocrResult.requestId !== id)
         this.setState({
-            selections: this.state.selections.filter(selection => selection.id !== id),
+            selections: this.state.selections.filter(selection => selection.requestId !== id),
             ocrResults: filteredOcrResults
         })
+    }
+
+    onSelectionChanged (request) {
+        const {x1, x2, y1, y2} = request.section.position
+        const sections = [
+            [x1, y1, Math.abs(x1 - x2), Math.abs(y1 - y2), 'Text']
+        ]
+        const {imageId } = request
+        this.callSetStateWithSetter(setOcrActionFinished, request.section.id, null, true)
+        requestText(sections, this.state.sessionId, imageId)
+            .then((result) => this.callSetStateWithSetter(setOcrActionFinished, request.section.id, result, false))
     }
 
     onNewSectionOCRRequest(request) {
@@ -124,7 +135,7 @@ export class MainPage extends React.Component {
         if (this.state.sessionId) {
             return <MainView
                 onSectionRemoved={this.onSectionRemoved.bind(this)}
-
+                onSelectionChanged={this.onSelectionChanged.bind(this)}
                 ocrResults={this.state.ocrResults}
                 setNewBlockType={this.setNewBlockType.bind(this)}
                 images={this.state.images}

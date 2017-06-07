@@ -20,6 +20,7 @@ export class PdfView extends React.Component {
                          key={image.imageId}
                          responses={this.props.responses[image.imageId]}
                          base64Image={image.base64Image}
+                         onSelectionChanged={this.props.onSelectionChanged}
                          onSectionRemoved={this.props.onSectionRemoved}/>
   }
 
@@ -33,7 +34,8 @@ PdfView.propTypes = {
   images: PropTypes.array,
   onNewSectionOCRRequest: PropTypes.func,
   responses: PropTypes.any,
-  onSectionRemoved: PropTypes.func
+  onSectionRemoved: PropTypes.func,
+  onSelectionChanged: PropTypes.func.isRequired
 }
 PdfView.defaultProps = {
   responses: {

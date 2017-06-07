@@ -4,13 +4,14 @@ import {PdfView} from "../PdfView/PdfView";
 
 export class MainView extends Component {
     render() {
-        const {onNewSectionOCRRequest, onSectionRemoved, ocrResults, onSortEnd, setNewBlockType, images} = this.props
+        const {onNewSectionOCRRequest, onSelectionChanged, onSectionRemoved, ocrResults, onSortEnd, setNewBlockType, images} = this.props
         return <div className='container MainView'>
             <SortableTextView useDragHandle={true} onSortEnd={onSortEnd}
                               onBlockTypeChange={setNewBlockType}
                               results={ocrResults}/>
             <PdfView onNewSectionOCRRequest={onNewSectionOCRRequest}
                      onSectionRemoved={onSectionRemoved}
+                     onSelectionChanged={onSelectionChanged}
                      images={images}/>
         </div>
 
@@ -23,6 +24,7 @@ MainView.propTypes = {
     ocrResults: PropTypes.any.isRequired,
     onSortEnd: PropTypes.func.isRequired,
     setNewBlockType: PropTypes.func.isRequired,
+    onSelectionChanged: PropTypes.func.isRequired,
     images: PropTypes.any.isRequired
 
 }
