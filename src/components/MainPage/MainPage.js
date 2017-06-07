@@ -1,10 +1,11 @@
 import React from 'react'
 import {Navbar} from '../Navbar/Navbar'
 import './MainPage.css'
-import {requestSession, requestText} from '../../logic/service/api'
-import {DEFAULT_SELECTED_BLOCK_TYPE} from "../../logic/constants/block-types";
+import {requestEpub, requestSession, requestText} from '../../logic/service/api'
+import {BLOCK_TYPE, DEFAULT_SELECTED_BLOCK_TYPE} from "../../logic/constants/block-types";
 import {MainView} from "../MainView/MainView";
 import {WelcomeView} from "../WelcomeView/WelcomeView";
+import {BottomBar} from "../BottomBar/BottomBar";
 
 const getInitialState = () => {
     return {
@@ -132,7 +133,7 @@ export class MainPage extends React.Component {
     }
 
     renderView() {
-        if (this.state.sessionId) {
+        if (true) {
             return <MainView
                 onSectionRemoved={this.onSectionRemoved.bind(this)}
                 onSelectionChanged={this.onSelectionChanged.bind(this)}
@@ -146,10 +147,24 @@ export class MainPage extends React.Component {
         }
     }
 
+    onFileExport (args) {
+        const elements = this.state.ocrResults.map(ocrResult => ({
+            type: BLOCK_TYPE[ocrResult.blockType].tag,
+            value: ocrResult.result.text
+        }))
+        requestEpub({
+            ...args,
+            elements
+        }).catch((err) => {
+            console.error(err)
+        })
+    }
+
     render() {
         return <div className='MainPage'>
             <Navbar onFileLoaded={this.onFileLoaded.bind(this)}/>
             {this.renderView()}
+            <BottomBar onFileExport={this.onFileExport.bind(this)}/>
         </div>
     }
 }

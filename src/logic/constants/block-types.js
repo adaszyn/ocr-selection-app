@@ -1,21 +1,30 @@
 export const BLOCK_TYPE = {
     PARAGRAPH: {
-        id: 'paragraph',
+        key: 'PARAGRAPH',
         value: 'paragraph',
+        tag: 'p'
+    },
+    SPAN: {
+        key: 'SPAN',
+        value: 'span',
+        tag: 'span'
     },
     HEADER: {
-        id: 'header',
-        value: 'header'
+        key: 'HEADER',
+        value: 'header',
+        tag: 'h1'
     },
     CITE: {
-        id: 'cite',
-        value: 'cite'
-    }
+        key: 'CITE',
+        value: 'cite',
+        tag: 'cite'
+    },
 }
 
 export const DEFAULT_BLOCKS = [
     BLOCK_TYPE.CITE,
     BLOCK_TYPE.HEADER,
+    BLOCK_TYPE.SPAN,
     BLOCK_TYPE.PARAGRAPH
 ]
 

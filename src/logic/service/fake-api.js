@@ -18,3 +18,7 @@ export function requestSession () {
     }, 2000)
   })
 }
+
+export function requestEpub () {
+    return Promise.resolve(null)
+}

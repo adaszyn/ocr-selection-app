@@ -7,7 +7,7 @@ export class DropDown extends Component {
     }
     render() {
         return <select className="DropDown" onChange={this.handleChange.bind(this)} defaultValue={this.props.selected}>
-            {this.props.values.map(({value, id}) => <option value={id} key={id}>{value}</option>)}
+            {this.props.values.map(({value, key}) => <option value={key} key={key}>{value}</option>)}
         </select>
     }
 }
