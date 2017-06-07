@@ -1,3 +1,13 @@
 .BottomBar {
     height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.BottomBar .Label {
+    font-size: 10px;
+}
+
+.titleInputContainer {
+    margin-left: 20px;
 }

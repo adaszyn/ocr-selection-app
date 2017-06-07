@@ -1,5 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 import './BottomBar.css'
+import {Input} from "../Input/Input";
+import {Button} from "../Button/Button";
 
 const getInitialState = () => {
     return {
@@ -24,15 +26,16 @@ export class BottomBar extends Component {
         super(props)
         this.state = getInitialState()
     }
-    handleAuthorChange (event) {
+
+    handleAuthorChange(event) {
         this.setState(setAuthor(event.target.value))
     }
 
-    handleTitleChange (event) {
+    handleTitleChange(event) {
         this.setState(setTitle(event.target.value))
     }
 
-    handleClick () {
+    handleClick() {
         this.props.onFileExport({
             ...this.state
         })
@@ -40,9 +43,17 @@ export class BottomBar extends Component {
 
     render() {
         return <div className="BottomBar">
-            <input type="text" value={this.state.author} onChange={this.handleAuthorChange.bind(this)}/>
-            <input type="text" value={this.state.title} onChange={this.handleTitleChange.bind(this)}/>
-            <button onClick={this.handleClick.bind(this)}>Download EPUB</button>
+            <div>
+                <label htmlFor="author-input" className="Label">AUTHOR</label>
+                <Input id="author-input" type="text" value={this.state.author}
+                       onChange={this.handleAuthorChange.bind(this)}/>
+            </div>
+            <div className="titleInputContainer">
+                <label htmlFor="title-input" className="Label">TITLE</label>
+                <Input id="title-input" type="text" value={this.state.title}
+                       onChange={this.handleTitleChange.bind(this)}/>
+            </div>
+            <Button onClick={this.handleClick.bind(this)}>Download EPUB</Button>
         </div>
     }
 }

@@ -133,7 +133,7 @@ export class MainPage extends React.Component {
     }
 
     renderView() {
-        if (true) {
+        if (this.state.sessionId) {
             return <MainView
                 onSectionRemoved={this.onSectionRemoved.bind(this)}
                 onSelectionChanged={this.onSelectionChanged.bind(this)}

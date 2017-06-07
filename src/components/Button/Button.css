@@ -1,0 +1,11 @@
+.Button {
+
+    font-family: 'Hind', sans-serif;
+}
+.Button:focus,
+.Button:active,
+.Button:hover
+{
+    outline: none;
+
+}
