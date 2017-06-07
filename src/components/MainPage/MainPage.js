@@ -4,6 +4,7 @@ import {PdfView} from '../OutputView/PdfView'
 import {Navbar} from '../Navbar/Navbar'
 import './MainPage.css'
 import {requestSession, requestText} from '../../logic/service/fake-api'
+import {DEFAULT_SELECTED_BLOCK_TYPE} from "../../logic/constants/block-types";
 
 const setImages = (images) => (state, props) => ({
     ...state,
@@ -23,7 +24,8 @@ const setOcrActionFinished = (requestId, result, loading) => (state, props) => (
         {
             loading,
             result,
-            requestId
+            requestId,
+            blockType: DEFAULT_SELECTED_BLOCK_TYPE.id
         }
     ]
 })
@@ -43,6 +45,15 @@ export const swapOCRResultsElements = (previousIdx, nextIdx) => state => {
     }
 }
 
+export const setBlockTypeForOcrResult = (requestId, blockType) => state => {
+    const ocrResult = state.ocrResults.find(result => result.requestId === requestId)
+    if (!ocrResult) {
+        return state
+    }
+    ocrResult.blockType = blockType
+    return state
+}
+
 export class MainPage extends React.Component {
     constructor() {
         super()
@@ -54,25 +65,25 @@ export class MainPage extends React.Component {
                 {
                     requestId: 'test1',
                     result: {
-                        text: '1'
+                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris'
                     }
                 },
                 {
                     requestId: 'test2',
                     result: {
-                        text: '2'
+                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
                     }
                 },
                 {
                     requestId: 'test3',
                     result: {
-                        text: '3'
+                        text: 'akdhsa kdjsakdjsad jsajkdas'
                     }
                 },
                 {
                     requestId: 'test4',
                     result: {
-                        text: '4'
+                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
                     }
                 }
             ]
@@ -120,12 +131,18 @@ export class MainPage extends React.Component {
         this.setState(swapOCRResultsElements(oldIndex, newIndex))
     }
 
+    setNewBlockType (requestId, blockTypeId) {
+        this.setState(setBlockTypeForOcrResult(requestId, blockTypeId))
+    }
+
 
     render() {
         return <div className='MainPage'>
             <Navbar onFileLoaded={this.onFileLoaded.bind(this)}/>
             <div className='container'>
-                <SortableTextView onSortEnd={this.onSortEnd.bind(this)} results={this.state.ocrResults}/>
+                <SortableTextView useDragHandle={true} onSortEnd={this.onSortEnd.bind(this)}
+                                  onBlockTypeChange={this.setNewBlockType.bind(this)}
+                                  results={this.state.ocrResults}/>
                 <PdfView onNewSectionOCRRequest={this.onNewSectionOCRRequest.bind(this)}
                          onSectionRemoved={this.onSectionRemoved.bind(this)}
                          images={this.state.images}/>

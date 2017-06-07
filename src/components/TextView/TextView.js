@@ -1,9 +1,11 @@
 import React, {PropTypes, Component} from 'react'
 import './TextView.css'
-import {SortableTextViewBox, TextViewBox} from '../TextViewBox/TextViewBox'
-import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
+import { SortableTextViewBox } from '../TextViewBox/TextViewBox'
+import { SortableContainer } from 'react-sortable-hoc';
 
 const DEFAULT_PLACEHOLDER_TEXT = '...'
+
+
 
 export class TextView extends Component {
     constructor() {
@@ -11,6 +13,10 @@ export class TextView extends Component {
         this.state = {
             previewComponentsOrder: []
         }
+    }
+
+    handleBlockTypeChange (requestId, blockType) {
+        this.props.onBlockTypeChange(requestId, blockType)
     }
 
     renderPreviewComponents() {
@@ -23,8 +29,12 @@ export class TextView extends Component {
             : DEFAULT_PLACEHOLDER_TEXT
 
         const loading = item.loading
-
-        return <SortableTextViewBox index={index} key={item.id} text={text} loading={loading}/>
+        return <SortableTextViewBox index={index}
+                                    onBlockTypeChange={this.handleBlockTypeChange.bind(this, item.requestId)}
+                                    key={item.requestId}
+                                    selectedBlockType={item.blockType}
+                                    text={text}
+                                    loading={loading}/>
 
     }
 
@@ -36,7 +46,8 @@ export class TextView extends Component {
 }
 
 TextView.propTypes = {
-    results: PropTypes.array
+    results: PropTypes.array,
+    onBlockTypeChange: PropTypes.func
 }
 
 export const SortableTextView = SortableContainer(TextView)

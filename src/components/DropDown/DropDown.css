@@ -1,0 +1,11 @@
+.DropDown {
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+.DropDown:focus {
+    outline: none;
+}

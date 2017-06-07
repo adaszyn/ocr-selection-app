@@ -1,4 +1,26 @@
 .TextViewBox {
-    border: 1px solid red;
+    position: relative;
     height: 48px;
+    background-color: white;
+    box-shadow: 0px 4px 4px -6px black;
+    margin: 12px 12px 0px 12px;
+    padding: 4px;
+    display: flex;
+}
+.TextViewBox .DropDown {
+    position: absolute;
+    right: 0;
+}
+.TextViewBox .drag-handle {
+    cursor: move;
+}
+
+.TextViewBox:before {
+    content: '';
+    position: absolute;
+    width: 3px;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: yellowgreen;
 }
