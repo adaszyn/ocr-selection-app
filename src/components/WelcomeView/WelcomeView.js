@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 import './WelcomeView.css'
 import {Loader} from "../Loader/Loader";
+import {FileInput} from "../FileInput/FileInput";
 
 export class WelcomeView extends Component {
     renderDialog() {
@@ -9,7 +10,7 @@ export class WelcomeView extends Component {
         } else {
             return <div className="NewProjectDialog">
                 <h2>Welcome to PDF Document Converter</h2>
-                <button className="Button" onClick={this.props.onNewProjectSelected}>New Project</button>
+                <FileInput onFileLoaded={this.props.onFileLoaded}/>
             </div>
         }
     }
@@ -31,7 +32,7 @@ export class WelcomeView extends Component {
 }
 
 WelcomeView.propTypes = {
-    onNewProjectSelected: PropTypes.func,
+    onFileLoaded: PropTypes.func,
     loading: PropTypes.bool
 }
 

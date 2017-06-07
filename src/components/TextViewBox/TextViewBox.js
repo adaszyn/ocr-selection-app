@@ -4,6 +4,7 @@ import { SortableElement, SortableHandle } from 'react-sortable-hoc';
 import draghandleUrl from '../../../public/drag.svg'
 import {DropDown} from "../DropDown/DropDown";
 import {DEFAULT_BLOCKS} from "../../logic/constants/block-types";
+import {Loader} from "../Loader/Loader";
 
 const DragHandle = SortableHandle(() => (
     <img className='drag-handle' style={{height: '40px'}} src={draghandleUrl} />
@@ -29,7 +30,7 @@ export class TextViewBox extends Component {
             </div>
             <DragHandle />
             <div className="content">
-                { this.renderTextPreview(this.props.text) }
+                { this.props.loading ? <Loader/> : this.renderTextPreview(this.props.text) }
             </div>
             <DropDown selected={this.props.selectedBlockType} values={DEFAULT_BLOCKS} onChange={this.props.onBlockTypeChange} />
         </div>

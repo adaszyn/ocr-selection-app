@@ -9,7 +9,7 @@ export function requestText () {
 }
 
 export function requestSession () {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
         resolve({
             images: fakeImages,

@@ -24,3 +24,12 @@
     height: 100%;
     background-color: yellowgreen;
 }
+.TextViewBox .Loader {
+    height: 100%;
+    width: auto;
+    margin-left: 26px;
+}
+.TextViewBox .Loader .loader {
+    font-size: 5px;
+    margin: auto;
+}
