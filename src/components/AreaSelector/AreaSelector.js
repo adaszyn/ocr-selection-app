@@ -98,6 +98,7 @@ export class AreaSelector extends React.Component {
     event.preventDefault()
     const position = this.props.getElementPosition()
     const size = this.props.getElementSize()
+    this.setState(setSelectionPositionEnd((clientX - position.x) / size.x, (clientY - position.y) / size.y))
     this.setState(setSelectionPositionStart((clientX - position.x) / size.x, (clientY - position.y) / size.y))
     // this prevents selection box to be displayed before START_POSITION is set to new value
     this.setState((state) => ({...state, selectionBoxVisible: true}))
