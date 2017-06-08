@@ -4,6 +4,7 @@ import { SelectedBox } from '../SelectedBox/SelectedBox'
 import { generateUniqueKey } from '../../logic/util/key-generator'
 import { ResizeBullet } from '../ResizeBullet/ResizeBullet'
 import { MoveBullet } from '../MoveBullet/MoveBullet'
+import { swapXCoordinates, swapYCoordinates } from '../../logic/util/positioning-util'
 
 const setSelectionPositionStart = (x, y) => (state, props) => ({
   ...state,
@@ -77,8 +78,15 @@ export class AreaSelector extends React.Component {
     this.setState({
       selectionBoxVisible: false
     })
+    let newPostion = this.state.selectionPosition
+    if (newPostion.x1 > newPostion.x2) {
+      newPostion = swapXCoordinates(newPostion)
+    }
+    if (newPostion.y1 > newPostion.y2) {
+      newPostion = swapYCoordinates(newPostion)
+    }
     const selectionBox = {
-      position: this.state.selectionPosition,
+      position: newPostion,
       id: generateUniqueKey()
     }
     this.setState(addNewSelection(selectionBox))
@@ -175,8 +183,8 @@ export class AreaSelector extends React.Component {
   }
 
   onBulletDragStop (id) {
-      this.props.onSelectionChanged(this.state.selectedSections.find(section => section.id === id))
-      this.setState({
+    this.props.onSelectionChanged(this.state.selectedSections.find(section => section.id === id))
+    this.setState({
       bulletDrag: null
     })
   }
