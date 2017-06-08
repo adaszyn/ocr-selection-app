@@ -37,7 +37,9 @@ export class BottomBar extends Component {
 
     handleClick() {
         this.props.onFileExport({
-            ...this.state
+            author: this.state.author,
+            title: this.state.title,
+            format: this.state.format
         })
     }
 

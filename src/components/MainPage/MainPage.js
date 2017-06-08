@@ -36,7 +36,7 @@ const setOcrActionFinished = (requestId, result, loading) => (state, props) => (
             loading,
             result,
             requestId,
-            blockType: DEFAULT_SELECTED_BLOCK_TYPE.id
+            blockType: DEFAULT_SELECTED_BLOCK_TYPE.key
         }
     ]
 })
