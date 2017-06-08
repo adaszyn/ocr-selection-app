@@ -3,7 +3,13 @@
     box-shadow: none;
     background: transparent;
     background-image: none;
-    -webkit-appearance: none;
+    border-top: 1px solid #ececec;
+    border-bottom: 1px solid #ececec;
+    transition: 0.1s linear all;
+}
+.DropDown:hover {
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
 }
 
 .DropDown:focus {

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import FileInput from '../FileInput/FileInput'
 import './Navbar.css'
-import logo from '../../../public/pdf-app-logo-path.svg'
+import logo from '../../../public/article-scraper.svg'
 
 export class Navbar extends React.Component {
   render () {

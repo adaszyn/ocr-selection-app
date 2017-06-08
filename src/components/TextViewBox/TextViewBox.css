@@ -6,6 +6,7 @@
     margin: 12px 12px 0px 12px;
     padding: 4px;
     display: flex;
+    align-items: center;
 }
 .TextViewBox .DropDown {
     position: absolute;
@@ -31,5 +32,5 @@
 }
 .TextViewBox .Loader .loader {
     font-size: 5px;
-    margin: auto;
+    margin-top: -18px;
 }

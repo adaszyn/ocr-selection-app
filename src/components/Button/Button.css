@@ -1,11 +1,14 @@
 .Button {
-
+    color: white;
+    background-color: dimgrey;
+    border: none;
+    border-radius: 1px;
     font-family: 'Hind', sans-serif;
 }
+
 .Button:focus,
 .Button:active,
-.Button:hover
-{
+.Button:hover {
     outline: none;
-
 }
+

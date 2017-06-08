@@ -2,7 +2,8 @@
     height: 10vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-left: 20px;
 }
 .BottomBar .Label {
     font-size: 10px;
@@ -10,4 +11,19 @@
 
 .titleInputContainer {
     margin-left: 20px;
+}
+.generationFormContainer {
+    display: flex;
+    align-items: flex-end;
+}
+
+#title-input, #author-input{
+    height: 18px;
+}
+
+#generate-button {
+    cursor: pointer;
+    margin-left: 10px;
+    height: 26px;
+    padding: 4px 8px;
 }
