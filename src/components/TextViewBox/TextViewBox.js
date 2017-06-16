@@ -30,7 +30,7 @@ export class TextViewBox extends Component {
             </div>
             <DragHandle />
             <div className="content">
-                { true ? <Loader/> : this.renderTextPreview(this.props.text) }
+                { this.props.loading ? <Loader/> : this.renderTextPreview(this.props.text) }
             </div>
             <DropDown selected={this.props.selectedBlockType} values={DEFAULT_BLOCKS} onChange={this.props.onBlockTypeChange} />
         </div>
