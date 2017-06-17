@@ -3,7 +3,7 @@ module.exports = {
     // First application
     {
       name      : 'ocr-app',
-      // script    : 'app.js',
+      script    : 'app.js',
       env: {
         COMMON_VARIABLE: 'true'
       },
@@ -19,12 +19,12 @@ module.exports = {
    */
   deploy : {
     production : {
-      user : 'wojtek',
-      host : '52.213.91.165',
-      ref  : 'origin/master',
-      repo : 'git@github.com:wojciechAdaszynski/ocr-selection-app.git',
-      path : '/home/wojtek/ocr-app',
-      'post-deploy' : 'npm install && npm build && pm2 reload ecosystem.config.js --env production'
+      user: 'wojtek',
+      host: '52.213.91.165',
+      ref: 'origin/master',
+      repo: 'git@github.com:wojciechAdaszynski/ocr-selection-app.git',
+      path: '/opt/ocr-app',
+      'post-deploy' : 'npm install && npm run build && pm2 reload ecosystem.config.js --env production'
     }
   }
 };
