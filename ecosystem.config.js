@@ -24,7 +24,7 @@ module.exports = {
       ref: 'origin/master',
       repo: 'git@github.com:wojciechAdaszynski/ocr-selection-app.git',
       path: '/opt/ocr-app',
-      'post-deploy' : 'NODE_ENV=production npm install && NODE_ENV=production npm run build'
+      'post-deploy' : 'npm install && NODE_ENV=production npm run build'
     }
   }
 };
