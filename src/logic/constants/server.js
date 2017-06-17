@@ -6,4 +6,4 @@ export const production = {
   host: '/ocr-api'
 }
 
-export default (process.NODE_ENV === 'production' ? production : local)
+export default (process.env.NODE_ENV === 'production' ? production : local)
