@@ -23,7 +23,7 @@ module.exports = {
       host : '52.213.91.165',
       ref  : 'origin/master',
       repo : 'git@github.com:wojciechAdaszynski/ocr-selection-app.git',
-      path : '/opt/ocr-selection-app',
+      path : '/home/wojtek/ocr-app',
       'post-deploy' : 'npm install && npm build && pm2 reload ecosystem.config.js --env production'
     }
   }
