@@ -3,7 +3,7 @@ export const local = {
 }
 
 export const production = {
-  host: '/ocr-api'
+  host: '/ocr-api/'
 }
 
 export default (process.env.NODE_ENV === 'production' ? production : local)
