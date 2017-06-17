@@ -20,7 +20,7 @@ module.exports = {
   deploy : {
     production : {
       user : 'wojtek',
-      host : '52.214.53.231',
+      host : '52.213.91.165',
       ref  : 'origin/master',
       repo : 'git@github.com:wojciechAdaszynski/ocr-selection-app.git',
       path : '/opt/ocr-selection-app',
