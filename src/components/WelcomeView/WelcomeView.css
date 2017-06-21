@@ -8,6 +8,9 @@
     position: absolute;
     top: 40%;
     left: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .FakeTextView {
     width: 50%;

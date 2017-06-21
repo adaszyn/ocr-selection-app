@@ -4,7 +4,11 @@ import './Loader.css'
 export class Loader extends Component {
     render () {
         return <div className="Loader" >
-            <div className="loader" />
+            <div className="spinner">
+                <div className="bounce1"/>
+                <div className="bounce2"/>
+                <div className="bounce3"/>
+            </div>
         </div>
     }
 }
