@@ -1,6 +1,5 @@
 module.exports = {
   apps : [
-    // First application
     {
       name      : 'ocr-app',
       script    : 'app.js',
@@ -12,15 +11,10 @@ module.exports = {
       }
     }
   ],
-
-  /**
-   * Deployment section
-   * http://pm2.keymetrics.io/docs/usage/deployment/
-   */
   deploy : {
     production : {
       user: 'wojtek',
-      host: '52.213.91.165',
+      host: process.env.EC2_INSTANCE_IP,
       ref: 'origin/master',
       repo: 'git@github.com:wojciechAdaszynski/ocr-selection-app.git',
       path: '/opt/ocr-app',
