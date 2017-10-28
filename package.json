@@ -70,7 +70,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "mocha scripts/testSetup.js --require ignore-styles --compilers js:babel-core/register \"src/**/*.spec.js\" --reporter progress --watch"
+    "test": "mocha scripts/testSetup.js --require ignore-styles --compilers js:babel-core/register \"src/**/*.spec.js\" --reporter progress",
+    "test:watch": "mocha scripts/testSetup.js --require ignore-styles --compilers js:babel-core/register \"src/**/*.spec.js\" --reporter progress --watch"
   },
   "jest": {
     "collectCoverageFrom": [

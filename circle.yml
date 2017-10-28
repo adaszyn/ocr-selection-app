@@ -1,0 +1,9 @@
+machine:
+  node:
+    version: 8.4.0
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - scp -r ocr-selection-app/build/* wojtek@$EC2_INSTANCE_IP:/opt/ocr_app/
