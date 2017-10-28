@@ -6,7 +6,7 @@ import logo from '../../../public/article-scraper.svg'
 export class Navbar extends React.Component {
   render () {
     return <div className='Navbar'>
-      <img src={logo} className="logo"/>
+      <img alt="logo" src={logo} className="logo"/>
       <FileInput onFileLoaded={this.props.onFileLoaded}/>
     </div>
   }

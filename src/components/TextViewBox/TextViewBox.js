@@ -7,7 +7,7 @@ import {DEFAULT_BLOCKS} from "../../logic/constants/block-types";
 import {Loader} from "../Loader/Loader";
 
 const DragHandle = SortableHandle(() => (
-    <img className='drag-handle' style={{height: '40px'}} src={draghandleUrl} />
+    <img alt="drag_handle" className='drag-handle' style={{height: '40px'}} src={draghandleUrl} />
 ))
 
 const MAX_TEXT_SIZE = 30

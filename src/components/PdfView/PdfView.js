@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import ImageWrapper from '../ImageWrapper/ImageWrapper'
 import './PdfView.css'
-import { generateUniqueKey } from '../../logic/util/key-generator'
 export class PdfView extends React.Component {
   onNewSectionSelected (request) {
     this.props.onNewSectionOCRRequest({
