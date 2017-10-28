@@ -37,3 +37,11 @@ export function swapYCoordinates(position) {
         y2: y1
     }
 }
+
+export function getXDistance(position) {
+    return Math.abs(position.x1 - position.x2)
+}
+
+export function getYDistance(position) {
+    return Math.abs(position.x1 - position.x2)
+}

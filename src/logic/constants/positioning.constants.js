@@ -1,0 +1,1 @@
+export const MINIMUM_SELECTION_DISTANCE = 0.03

@@ -4,7 +4,8 @@ import { SelectedBox } from '../SelectedBox/SelectedBox'
 import { generateUniqueKey } from '../../logic/util/key-generator'
 import { ResizeBullet } from '../ResizeBullet/ResizeBullet'
 import { MoveBullet } from '../MoveBullet/MoveBullet'
-import { swapXCoordinates, swapYCoordinates } from '../../logic/util/positioning-util'
+import { getXDistance, getYDistance, swapXCoordinates, swapYCoordinates } from '../../logic/util/positioning-util'
+import { MINIMUM_SELECTION_DISTANCE } from '../../logic/constants/positioning.constants'
 
 const setSelectionPositionStart = (x, y) => (state, props) => ({
   ...state,
@@ -79,6 +80,11 @@ export class AreaSelector extends React.Component {
       selectionBoxVisible: false
     })
     let newPostion = this.state.selectionPosition
+    const xDistance = getXDistance(newPostion)
+    const yDistance = getYDistance(newPostion)
+    if (xDistance < MINIMUM_SELECTION_DISTANCE || yDistance < MINIMUM_SELECTION_DISTANCE) {
+      return;
+    }
     if (newPostion.x1 > newPostion.x2) {
       newPostion = swapXCoordinates(newPostion)
     }
