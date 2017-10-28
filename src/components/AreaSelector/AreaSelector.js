@@ -3,7 +3,6 @@ import { SelectionBox } from '../SelectionBox/SelectionBox'
 import { SelectedBox } from '../SelectedBox/SelectedBox'
 import { generateUniqueKey } from '../../logic/util/key-generator'
 import { ResizeBullet } from '../ResizeBullet/ResizeBullet'
-import { MoveBullet } from '../MoveBullet/MoveBullet'
 import { getXDistance, getYDistance, swapXCoordinates, swapYCoordinates } from '../../logic/util/positioning-util'
 import { MINIMUM_SELECTION_DISTANCE } from '../../logic/constants/positioning.constants'
 
@@ -48,7 +47,9 @@ export class AreaSelector extends React.Component {
       },
       selectedSections: [],
       bulletDrag: null,
-      bulletMove: null
+      bulletMove: null,
+      xDiff: 0,
+      yDiff: 0,
     }
     this.style = {
       position: 'relative',
@@ -137,10 +138,10 @@ export class AreaSelector extends React.Component {
       const currentPosition = this.getCurrentRelativePosition(clientX, clientY)
       const width = selectedSection.position.x2 - selectedSection.position.x1
       const height = selectedSection.position.y2 - selectedSection.position.y1
-      selectedSection.position.x1 = currentPosition.x - width / 2
-      selectedSection.position.x2 = currentPosition.x + width / 2
-      selectedSection.position.y1 = currentPosition.y - height / 2
-      selectedSection.position.y2 = currentPosition.y + height / 2
+      selectedSection.position.x1 = currentPosition.x - width / 2 + this.state.xDiff
+      selectedSection.position.x2 = currentPosition.x + width / 2 + this.state.xDiff
+      selectedSection.position.y1 = currentPosition.y - height / 2 + this.state.yDiff
+      selectedSection.position.y2 = currentPosition.y + height / 2 + this.state.yDiff
       this.setState({
         selectedSections: [
           ...this.state.selectedSections.filter(section => section.id !== selectionId),
@@ -171,6 +172,8 @@ export class AreaSelector extends React.Component {
                         onClose={this.onSelectedBoxClose.bind(this, selectionBox.id)}
                         position={selectionBox.position}
                         id={selectionBox.id}
+                        onMoveStart={this.onBulletMoveStart.bind(this, selectionBox.id)}
+                        onMoveStop={this.onBulletMoveStop.bind(this, selectionBox.id)}
     />
   }
 
@@ -214,31 +217,13 @@ export class AreaSelector extends React.Component {
     />
   }
 
-  renderMoveBullets () {
-    return this.state.selectedSections.map(this.renderMoveBullet.bind(this))
-  }
-
-  renderMoveBullet (selectionBox) {
-    const {x1, x2, y1, y2} = selectionBox.position
-    const position = {
-      x1: x1 + (x2 - x1) / 2,
-      x2: x1 + (x2 - x1) / 2,
-      y1: y1 + (y2 - y1) / 2,
-      y2: y1 + (y2 - y1) / 2
-    }
-    return <MoveBullet getContainerSize={this.props.getElementSize}
-                       key={selectionBox.id}
-                       getContainerPosition={this.props.getElementPosition}
-                       position={position}
-                       id={selectionBox.id}
-                       onMoveStart={this.onBulletMoveStart.bind(this, selectionBox.id)}
-                       onMoveStop={this.onBulletMoveStop.bind(this, selectionBox.id)}
-    />
-  }
-
-  onBulletMoveStart (id) {
+  onBulletMoveStart (id, event) {
+    const relativePosition = this.getCurrentRelativePosition(event.clientX, event.clientY)
+    const selectedSection = this.state.selectedSections.find(section => section.id === id)
     this.setState({
-      bulletMove: id
+      bulletMove: id,
+      xDiff: selectedSection.position.x2 - ((selectedSection.position.x2 - selectedSection.position.x1) / 2) - relativePosition.x,
+      yDiff: selectedSection.position.y2 - ((selectedSection.position.y2 - selectedSection.position.y1) / 2) - relativePosition.y
     })
   }
 
@@ -258,7 +243,6 @@ export class AreaSelector extends React.Component {
       <SelectionBox containerSize={this.props.getElementSize} position={this.state.selectionPosition}/>}
       {this.renderSelectedBoxes()}
       {this.renderResizeBullets()}
-      {this.renderMoveBullets()}
       {this.props.children}
     </div>
   }

@@ -34,11 +34,26 @@ export class SelectedBox extends Component {
     this.setMouseIsOverValue(false)
   }
 
+  onMouseDown (e) {
+    e.stopPropagation()
+    e.preventDefault()
+    this.props.onMoveStart(e)
+  }
+
+  onMouseUp (e) {
+    e.stopPropagation()
+    e.preventDefault()
+    this.props.onMoveStop(e)
+  }
+
   render () {
     return (
       <AbstractAreaComponent position={this.props.position}>
         <div className="SelectedBox" onMouseLeave={this.onMouseLeave.bind(this)}
-             onMouseEnter={this.onMouseEnter.bind(this)}>
+             onMouseEnter={this.onMouseEnter.bind(this)}
+             onMouseDown={this.onMouseDown.bind(this)}
+             onMouseUp={this.onMouseUp.bind(this)}
+        >
           <div className="toolkit-container">
             {this.state.mouseIsOver && <SelectionToolKit onClose={this.props.onClose} />}
           </div>
