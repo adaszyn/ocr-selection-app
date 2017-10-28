@@ -24,6 +24,6 @@ jobs:
 
       - run: npm test
       - run: npm run build
-      - run: scp -r build/* wojtek@$EC2_INSTANCE_IP:/opt/ocr-app/
+      - run: scp -o "StrictHostKeyChecking no" -r build/* wojtek@$EC2_INSTANCE_IP:/opt/ocr-app/
 
 
